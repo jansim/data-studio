@@ -1,6 +1,6 @@
-# Minimal DataWrangler Wrapper
+# Untitled
 
-https://observablehq.com/@jansim/minimal-datawrangler-wrapper@32
+https://observablehq.com/@jansim/minimal-datawrangler-wrapper@53
 
 View this notebook in your browser by running a web server in this folder. For
 example:
@@ -14,7 +14,7 @@ import this module directly into your application. To npm install:
 
 ~~~sh
 npm install @observablehq/runtime@4
-npm install https://api.observablehq.com/d/11397570b2f6c889@32.tgz?v=3
+npm install https://api.observablehq.com/d/11397570b2f6c889@53.tgz?v=3
 ~~~
 
 Then, import your notebook and the runtime as:

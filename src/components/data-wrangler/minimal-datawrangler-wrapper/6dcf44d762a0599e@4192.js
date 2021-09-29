@@ -1,6 +1,6 @@
 // https://observablehq.com/@observablehq/data-wrangler@4192
-import define1 from "./ab3e70b29c480e6d@79.js";
-import define2 from "./79750b3b8e929d9d@221.js";
+import define1 from "./ab3e70b29c480e6d@83.js";
+import define2 from "./79750b3b8e929d9d@223.js";
 import define3 from "./1371b3b2446a73b4@306.js";
 
 export default function define(runtime, observer) {

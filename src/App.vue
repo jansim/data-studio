@@ -1,13 +1,21 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
+  <Wrangler :data="[{row: 3, name: 'C'},{row: 4, name: 'D'}]" @newData="onNewData"/>
 </template>
 
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
+<script>
+import Wrangler from './components/data-wrangler/Wrangler.vue'
 
-// This starter template is using Vue 3 experimental <script setup> SFCs
-// Check out https://github.com/vuejs/rfcs/blob/master/active-rfcs/0040-script-setup.md
+export default {
+  name: 'App',
+  components: {
+    Wrangler
+  },
+  methods: {
+    onNewData (newData) {
+      console.log('New Data:', newData)
+    }
+  }
+}
 </script>
 
 <style>
@@ -15,7 +23,6 @@ import HelloWorld from './components/HelloWorld.vue'
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
 }
