@@ -1,18 +1,25 @@
 <template>
+  <DataViewer/>
   <Wrangler :data="[{row: 3, name: 'C'},{row: 4, name: 'D'}]" @newData="onNewData"/>
 </template>
 
 <script>
 import Wrangler from './components/data-wrangler/Wrangler.vue'
+import DataViewer from './components/DataViewer.vue'
+
+import $data from './$data'
 
 export default {
   name: 'App',
   components: {
-    Wrangler
+    Wrangler,
+    DataViewer
   },
   methods: {
     onNewData (newData) {
       console.log('New Data:', newData)
+
+      $data.set('test', newData)
     }
   }
 }
