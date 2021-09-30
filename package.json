@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@observablehq/runtime": "^4.16.1",
+    "frappe-datatable": "^1.15.4",
     "vue": "^3.0.5"
   },
   "devDependencies": {

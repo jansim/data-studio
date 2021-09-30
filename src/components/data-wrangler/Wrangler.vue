@@ -51,7 +51,10 @@ export default {
             // Loading...
           },
           fulfilled: (value) => {
-            this.$emit('newData', value)
+            // The wrangler returns an arquero dataframe with some metadata
+            // For now, let's just pass the raw data itself
+            const data = value.objects()
+            this.$emit('newData', data)
           },
           rejected: (error) => {
             console.error('[Wrangler] Retrieving output data failed:', error)
