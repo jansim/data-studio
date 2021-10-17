@@ -9,4 +9,7 @@
 </script>
 
 <style lang="css" scoped>
+.tabs {
+  display: flex;
+}
 </style>

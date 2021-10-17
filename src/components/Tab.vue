@@ -24,14 +24,23 @@ export default {
   },
   methods: {
     onClick () {
-      this.$emit('selected', this.id)
+      this.$emit('select', this.id)
     }
   }
 }
 </script>
 
 <style lang="css" scoped>
-.is-active {
+.tab {
+  padding: .5rem 1rem;
+  cursor: pointer;
+}
+
+.tab:hover {
+  color: #189ab4;
+}
+
+.tab.is-active {
   font-weight: bold;
 }
 </style>

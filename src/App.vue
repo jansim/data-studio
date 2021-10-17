@@ -1,6 +1,6 @@
 <template>
   <Tabs default="viewer">
-    <Tab :id="module.id" :isActive="index === activeModuleIndex" :key="`tab-${module.id}`" :title="module.name" v-for="(module, index) in modules" @click="activeModuleIndex = index" />
+    <Tab :id="module.id" :isActive="index === activeModuleIndex" :key="`tab-${module.id}`" :title="module.name" v-for="(module, index) in modules" @select="activeModuleIndex = index" />
   </Tabs>
 
   <module-viewer :key="activeModule.id" :module="activeModule"/>
@@ -46,6 +46,5 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
