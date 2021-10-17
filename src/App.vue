@@ -1,9 +1,9 @@
 <template>
   <Tabs default="viewer">
-    <Tab :id="module.id" :key="module.id" :title="module.name" v-for="module in modules">
-      <module-viewer :module="module"/>
-    </Tab>
+    <Tab :id="module.id" :isActive="index === activeModuleIndex" :key="`tab-${module.id}`" :title="module.name" v-for="(module, index) in modules" @click="activeModuleIndex = index" />
   </Tabs>
+
+  <module-viewer :key="activeModule.id" :module="activeModule"/>
 </template>
 
 <script>
@@ -25,7 +25,13 @@ export default {
   },
   data () {
     return {
-      modules: modules
+      modules: modules,
+      activeModuleIndex: 0
+    }
+  },
+  computed: {
+    activeModule () {
+      return this.modules[this.activeModuleIndex]
     }
   },
   mounted () {

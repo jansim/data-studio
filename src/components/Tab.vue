@@ -1,17 +1,12 @@
 <template>
-  <div class="tab-title" :class="{'is-active': isActive}" @click="activate">
+  <div class="tab" :class="{'is-active': isActive}" @click="onClick">
     {{ title }}
-  </div>
-
-  <div class="tab" v-if="isActive">
-    <slot />
   </div>
 </template>
 
 <script>
 export default {
   name: 'Tab',
-  inject: ['activeTab'],
   props: {
     id: {
       type: String,
@@ -21,16 +16,15 @@ export default {
       type: String,
       required: false,
       default: ''
-    }
-  },
-  computed: {
-    isActive () {
-      return this.activeTab == this.id
+    },
+    isActive: {
+      type: Boolean,
+      required: true
     }
   },
   methods: {
-    activate () {
-      this.$parent.setActiveTab(this.id)
+    onClick () {
+      this.$emit('selected', this.id)
     }
   }
 }
