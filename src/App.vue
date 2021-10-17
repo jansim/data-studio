@@ -1,10 +1,7 @@
 <template>
   <Tabs default="viewer">
-    <Tab id="viewer" title="Viewer">
-      <DataViewer/>
-    </Tab>
-    <Tab id="wrangler" title="Wrangler">
-      <Wrangler :data="[{row: 3, name: 'C'},{row: 4, name: 'D'}]" @newData="onNewData"/>
+    <Tab :id="module.id" :key="module.id" :title="module.name" v-for="module in modules">
+      <module-viewer :module="module"/>
     </Tab>
   </Tabs>
 </template>
@@ -13,8 +10,9 @@
 import Tab from './components/Tab.vue'
 import Tabs from './components/Tabs.vue'
 
-import Wrangler from './components/data-wrangler/Wrangler.vue'
-import DataViewer from './components/DataViewer.vue'
+import ModuleViewer from './components/ModuleViewer.vue'
+
+import modules from './modules'
 
 import $data from './$data'
 
@@ -23,15 +21,15 @@ export default {
   components: {
     Tab,
     Tabs,
-    Wrangler,
-    DataViewer
+    ModuleViewer
   },
-  methods: {
-    onNewData (newData) {
-      console.log('New Data:', newData)
-
-      $data.set('test', newData)
+  data () {
+    return {
+      modules: modules
     }
+  },
+  mounted () {
+    $data.set('test', [{row: 3, name: 'C'},{row: 4, name: 'D'}])
   }
 }
 </script>

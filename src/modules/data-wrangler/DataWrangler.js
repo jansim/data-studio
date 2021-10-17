@@ -1,40 +1,13 @@
-<template>
-  <div class="data-wrangler-wrapper">
-    <div ref="wrangler"></div>
-  </div>
-</template>
-
-<script>
 import {Runtime, Inspector} from "@observablehq/runtime";
 import define from "./minimal-datawrangler-wrapper";
+
+import './DataWrangler.css'
 
 // Use variable for main state outside of vue scope to avoid errors
 let globalMain = undefined;
 
 export default {
-  name: 'Wrangler',
-  props: {
-    data: {
-      type: Object,
-      required: true
-    }
-  },
-  watch: {
-    data: {
-      immediate: true,
-      handler () {
-        this.onSourceDataChange();
-      }
-    }
-  },
-  methods: {
-    onSourceDataChange () {
-      if (globalMain) {
-        globalMain.redefine('data1', this.data)
-      }
-    }
-  },
-  mounted () {
+  mount (element, moduleApi) {
     const runtime = new Runtime();
 
     const main = runtime.module(define, name => {
@@ -42,7 +15,7 @@ export default {
 
       if (name.includes('viewof')) {
         // Use inspector to bind to page
-        return new Inspector(this.$refs.wrangler);
+        return new Inspector(element);
       }
       if (name === "output_data") {
         // Retrieve data through custom observer
@@ -54,7 +27,10 @@ export default {
             // The wrangler returns an arquero dataframe with some metadata
             // For now, let's just pass the raw data itself
             const data = value.objects()
-            this.$emit('newData', data)
+
+            console.warn('Note: Updating of data not yet handled!')
+            // TODO: Check for actual differences here!
+            // moduleApi.setData(data)
           },
           rejected: (error) => {
             console.error('[Wrangler] Retrieving output data failed:', error)
@@ -68,22 +44,18 @@ export default {
     }
     globalMain = main
 
-    this.onSourceDataChange();
+    // Manually update data
+    const data = moduleApi.getData()
+    this.onDataChange(data)
   },
-  unmounted () {
+
+  unmount (element, moduleApi) {
     globalMain = undefined
+  },
+
+  onDataChange (newData) {
+    if (globalMain) {
+      globalMain.redefine('data1', newData)
+    }
   }
 }
-</script>
-
-<style lang="css" scoped>
-/* Hide the header */
-:deep(#minimal-datawrangler-wrapper) {
-  display: none;
-}
-
-/* Hide Variable Definitions */
-:deep(.observablehq--inspect) {
- display: none;
-}
-</style>

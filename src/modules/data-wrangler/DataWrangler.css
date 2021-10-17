@@ -1,0 +1,9 @@
+/* Hide the header */
+#minimal-datawrangler-wrapper {
+  display: none;
+}
+
+/* Hide Variable Definitions */
+.observablehq--inspect {
+ display: none;
+}
