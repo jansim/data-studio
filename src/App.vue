@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import "./global.css"
+
 import Tab from './components/Tab.vue'
 import Tabs from './components/Tabs.vue'
 
@@ -46,5 +48,10 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: stretch;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="module-view">
+  <div :id="`module-${module.id}`" class="module-view">
     <div ref="module"/>
   </div>
 </template>
@@ -55,4 +55,9 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.module-view {
+  flex-grow: 1;
+
+  padding: 10px;
+}
 </style>
