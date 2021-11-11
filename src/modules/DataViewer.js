@@ -26,6 +26,6 @@ export default {
   },
 
   onDataChange (newData) {
-    tableInstance.refresh(newData, this.getColumns(this.data))
+    tableInstance.refresh(newData, getColumns(newData))
   }
 }
