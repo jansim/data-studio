@@ -4,6 +4,8 @@
   </Tabs>
 
   <module-viewer :key="activeModule.id" :module="activeModule"/>
+
+  <DragNDropTarget/>
 </template>
 
 <script>
@@ -13,6 +15,7 @@ import Tab from './components/Tab.vue'
 import Tabs from './components/Tabs.vue'
 
 import ModuleViewer from './components/ModuleViewer.vue'
+import DragNDropTarget from './components/DragNDropTarget.vue'
 
 import modules from './modules'
 
@@ -23,7 +26,8 @@ export default {
   components: {
     Tab,
     Tabs,
-    ModuleViewer
+    ModuleViewer,
+    DragNDropTarget
   },
   data () {
     return {

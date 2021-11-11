@@ -13,6 +13,7 @@
     "@luma.gl/core": "^8.3.1",
     "@msrvida/sanddance-explorer": "^3",
     "@observablehq/runtime": "^4.16.1",
+    "arquero": "^4.8.7",
     "frappe-datatable": "^1.15.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
