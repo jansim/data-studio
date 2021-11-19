@@ -6,14 +6,20 @@
 
 <script>
 import dataStore from '../data/dataStore'
+import { loadDatasets } from '../data/dataLoader'
 
 const TEMP_FIXED_DATASETKEY = 'test'
+// The interface supplied with which modules can interact
+// with the rest of the application
 const moduleApi = {
   getData () {
     return dataStore.get(TEMP_FIXED_DATASETKEY)
   },
   setData (newData) {
     dataStore.set(TEMP_FIXED_DATASETKEY, newData)
+  },
+  loadDatasets (sources) {
+    loadDatasets(sources)
   }
 }
 

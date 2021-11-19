@@ -5,11 +5,7 @@
 </template>
 
 <script>
-import { fromCSV } from 'arquero'
-
-import dataStore from '../data/dataStore'
-
-const TEMP_FIXED_DATASETKEY = 'test'
+import { loadDatasets } from '../data/dataLoader'
 
 export default {
   name: 'DragNDropTarget',
@@ -36,32 +32,11 @@ export default {
       this.currentlyDragging = true;
     },
     onDrop (event) {
-      console.log(event)
       event.preventDefault();
-      console.log(event.dataTransfer.files)
 
-      this.loadDatasets(event.dataTransfer.files)
+      loadDatasets(event.dataTransfer.files)
 
       this.currentlyDragging = false;
-    },
-
-    async loadDatasets (fileList) {
-      // TODO: Handle URLs here
-      const dataset = await this.loadFile(fileList)
-
-      // TODO: Use arquero for dataframes
-      dataStore.set(TEMP_FIXED_DATASETKEY, dataset.objects())
-    },
-
-    // TODO: Outsource this into a separate fucntion
-    async loadFile (fileList) {
-      // TODO: handle multiple files; possibly support streaming loading of data
-      const file = fileList[0]
-
-      const data = fromCSV(await file.text())
-      console.log(data)
-
-      return data
     }
   }
 }
