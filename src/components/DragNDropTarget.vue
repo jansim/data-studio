@@ -7,7 +7,7 @@
 <script>
 import { fromCSV } from 'arquero'
 
-import $data from '../$data'
+import dataStore from '../data/dataStore'
 
 const TEMP_FIXED_DATASETKEY = 'test'
 
@@ -50,7 +50,7 @@ export default {
       const dataset = await this.loadFile(fileList)
 
       // TODO: Use arquero for dataframes
-      $data.set(TEMP_FIXED_DATASETKEY, dataset.objects())
+      dataStore.set(TEMP_FIXED_DATASETKEY, dataset.objects())
     },
 
     // TODO: Outsource this into a separate fucntion

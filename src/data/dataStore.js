@@ -1,5 +1,5 @@
-class DataPlugin {
-  datastore = {}
+class DataStore {
+  store = {}
   listeners = {}
 
   checkListener (name) {
@@ -10,8 +10,8 @@ class DataPlugin {
   }
 
   set (name, data) {
-    const isNewData = !(name in this.datastore)
-    this.datastore[name] = data
+    const isNewData = !(name in this.store)
+    this.store[name] = data
 
     if (isNewData) { this.notifyNameListeners() }
 
@@ -20,14 +20,14 @@ class DataPlugin {
     this.notifyListeners(name)
   }
   get (name) {
-    if (name in this.datastore) {
-      return this.datastore[name]
+    if (name in this.store) {
+      return this.store[name]
     } else {
       return undefined
     }
   }
   delete(name) {
-    delete this.datastore[name]
+    delete this.store[name]
     delete this.listeners[name]
 
     this.notifyNameListeners()
@@ -47,7 +47,7 @@ class DataPlugin {
   }
 
   getNames () {
-    return Object.keys(this.datastore)
+    return Object.keys(this.store)
   }
   nameListeners = []
   watchNames (callback, immediate = true) {
@@ -62,5 +62,5 @@ class DataPlugin {
   }
 }
 
-const $data = new DataPlugin()
-export default $data
+const dataStore = new DataStore()
+export default dataStore

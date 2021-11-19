@@ -19,7 +19,7 @@ import DragNDropTarget from './components/DragNDropTarget.vue'
 
 import modules from './modules'
 
-import $data from './$data'
+import dataStore from './data/dataStore'
 
 export default {
   name: 'App',
@@ -41,7 +41,7 @@ export default {
     }
   },
   mounted () {
-    $data.set('test', [{row: 3, name: 'C'},{row: 4, name: 'D'}])
+    dataStore.set('test', [{row: 3, name: 'C'},{row: 4, name: 'D'}])
   }
 }
 </script>

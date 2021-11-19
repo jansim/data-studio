@@ -5,15 +5,15 @@
 </template>
 
 <script>
-import $data from '../$data'
+import dataStore from '../data/dataStore'
 
 const TEMP_FIXED_DATASETKEY = 'test'
 const moduleApi = {
   getData () {
-    return $data.get(TEMP_FIXED_DATASETKEY)
+    return dataStore.get(TEMP_FIXED_DATASETKEY)
   },
   setData (newData) {
-    $data.set(TEMP_FIXED_DATASETKEY, newData)
+    dataStore.set(TEMP_FIXED_DATASETKEY, newData)
   }
 }
 
@@ -38,7 +38,7 @@ export default {
     })
 
     // TODO: unregister this listener!
-    $data.watch(TEMP_FIXED_DATASETKEY, (newData) => {
+    dataStore.watch(TEMP_FIXED_DATASETKEY, (newData) => {
       if (this.loadedModule) {
         this.loadedModule.onDataChange(newData)
       }
