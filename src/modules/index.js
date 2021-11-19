@@ -1,5 +1,10 @@
 export default [
   {
+    id: 'loader',
+    name: 'Loader',
+    load: () => import('./dataset-loader/DatasetLoader.js')
+  },
+  {
     id: 'viewer',
     name: 'Viewer',
     load: () => import('./DataViewer.js')

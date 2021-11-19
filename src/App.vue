@@ -3,7 +3,7 @@
     <Tab :id="module.id" :isActive="index === activeModuleIndex" :key="`tab-${module.id}`" :title="module.name" v-for="(module, index) in modules" @select="activeModuleIndex = index" />
   </Tabs>
 
-  <module-viewer :key="activeModule.id" :module="activeModule"/>
+  <module-viewer :key="activeModule.id" :module="activeModule" @setActiveModule="setActiveModuleId"/>
 
   <DragNDropTarget/>
 </template>
@@ -42,6 +42,18 @@ export default {
   },
   mounted () {
     dataStore.set('test', [{row: 3, name: 'C'},{row: 4, name: 'D'}])
+  },
+  methods: {
+    setActiveModuleId (newModuleId) {
+      let targetIndex
+      for (let index = 0; index < this.modules.length; index++) {
+        if (this.modules[index].id === newModuleId) {
+          targetIndex = index
+          break
+        }
+      }
+      this.activeModuleIndex = targetIndex
+    }
   }
 }
 </script>

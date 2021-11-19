@@ -12,6 +12,8 @@ const TEMP_FIXED_DATASETKEY = 'test'
 // The interface supplied with which modules can interact
 // with the rest of the application
 const moduleApi = {
+  _moduleViewerInstance: null,
+
   getData () {
     return dataStore.get(TEMP_FIXED_DATASETKEY)
   },
@@ -20,6 +22,9 @@ const moduleApi = {
   },
   loadDatasets (sources) {
     loadDatasets(sources)
+  },
+  setActiveModule (newViewId) {
+    this._moduleViewerInstance.$emit('setActiveModule', newViewId)
   }
 }
 
@@ -37,6 +42,8 @@ export default {
     }
   },
   mounted () {
+    moduleApi._moduleViewerInstance = this
+
     this.module.load().then((loadedModule) => {
       this.loadedModule = loadedModule.default
 
