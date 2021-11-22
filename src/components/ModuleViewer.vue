@@ -1,7 +1,5 @@
 <template>
-  <div :id="`module-${module.id}`" class="module-view">
-    <div ref="module"/>
-  </div>
+  <div :id="`module-${module.id}`" class="module-view" ref="module" />
 </template>
 
 <script>
@@ -69,6 +67,8 @@ export default {
 
 <style lang="css" scoped>
 .module-view {
+  /* MH0 is used here, to make sure the module-view doesn't overflow */
+  min-height: 0;
   flex-grow: 1;
 
   padding: 10px;
