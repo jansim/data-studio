@@ -4,27 +4,9 @@
 
 <script>
 import dataStore from '../data/dataStore'
-import { loadDatasets } from '../data/dataLoader'
+import ModuleApi from '../ModuleApi'
 
 const TEMP_FIXED_DATASETKEY = 'test'
-// The interface supplied with which modules can interact
-// with the rest of the application
-const moduleApi = {
-  _moduleViewerInstance: null,
-
-  getData () {
-    return dataStore.get(TEMP_FIXED_DATASETKEY)
-  },
-  setData (newData) {
-    dataStore.set(TEMP_FIXED_DATASETKEY, newData)
-  },
-  loadDatasets (sources) {
-    loadDatasets(sources)
-  },
-  setActiveModule (newViewId) {
-    this._moduleViewerInstance.$emit('setActiveModule', newViewId)
-  }
-}
 
 export default {
   name: 'ModuleViewer',
@@ -40,7 +22,7 @@ export default {
     }
   },
   mounted () {
-    moduleApi._moduleViewerInstance = this
+    const moduleApi = new ModuleApi(this)
 
     this.module.load().then((loadedModule) => {
       this.loadedModule = loadedModule.default
