@@ -12,7 +12,11 @@ const textFileTypes = [
 function loadDatasets (sources) {
   // Convenience function to load multiple datasets
   // TODO: implement support for loading multiple datasets
-  loadDataset(sources[0])
+  if (Array.isArray(sources)) {
+    loadDataset(sources[0])
+  } else {
+    throw "Type mismatch: loadDatasets expects an array of sources. No array was provided."
+  }
 }
 
 async function loadDataset (source) {
@@ -33,7 +37,7 @@ async function getDataset (source) {
     // TODO: implement excel parsing
     throw "Parsing of excel files not yet supported."
   } else {
-    throw "Unsupported file type."
+    throw `Unsupported file type: "${type}"`
   }
 }
 
@@ -43,7 +47,7 @@ async function downloadTextFile (source) {
     return await source.text()
   } else if (typeof source === "string") {
     const response = await fetch(source)
-    return await source.text()
+    return await response.text()
   }
 }
 
@@ -60,7 +64,7 @@ function parseTextFile (type, contents) {
       return fromJSON(contents)
       break;
     default:
-      throw "Trying to parse unsupported text file type."
+      throw `Trying to parse unsupported text file type: "${type}"`
       break;
   }
 }
@@ -71,12 +75,18 @@ function detectFileType (source) {
   if (source instanceof File) {
     // Source is local file
     filename = source.name
-  } else if (source === "string") {
+  } else if (typeof source === "string") {
     // URL
     filename = source
+  } else {
+    console.warn("Unable to extract filename for source", source)
   }
 
   const extension = filename.split(".").pop()
+
+  if (extension.length < 3) {
+    console.warn(`Suspiciously short file extension: "${extension}". Filename: "${filename}".`)
+  }
 
   if (extension === "xlsx" || extension === "xls") {
     return "EXCEL"
