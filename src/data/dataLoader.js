@@ -1,4 +1,4 @@
-import { fromCSV, fromJSON } from 'arquero'
+import { fromCSV, from } from 'arquero'
 
 import dataStore from '../data/dataStore'
 const TEMP_FIXED_DATASETKEY = 'test'
@@ -61,7 +61,9 @@ function parseTextFile (type, contents) {
     //   // return fromCSV(contents, { separator: '\t' })
     //   break;
     case "JSON":
-      return fromJSON(contents)
+      // Working around the weird choice in fromJSON here, that it can only
+      // handle column-wise tables. This way row-wise specified JSON data also works.
+      return from(JSON.parse(contents))
       break;
     default:
       throw `Trying to parse unsupported text file type: "${type}"`

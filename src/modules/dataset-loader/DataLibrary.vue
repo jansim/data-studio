@@ -35,6 +35,11 @@ const DATA_SOURCES = [
         name: 'mtcars',
         author: 'Motor Trend US magazine',
         url: '/data/example/mtcars.csv'
+      },
+      {
+        name: 'movies',
+        author: 'Vega imdb Movie-Rating Example Dataset',
+        url: 'https://vega.github.io/vega-datasets/data/movies.json'
       }
     ]
   },
