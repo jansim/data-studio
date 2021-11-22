@@ -7,3 +7,36 @@
 .observablehq--inspect {
  display: none;
 }
+
+/* Hide code window */
+.code_wrapper > .section_header {
+  display: none !important;
+}
+.code_wrapper > .code_display {
+  display: none;
+}
+
+/*
+  Adding custom content to code_wrapper via CSS,
+  because it's unknown when observable actually renders content
+ */
+.code_wrapper {
+  /*
+    Quite a hacky solution of disabling pointer-events on the actual element and
+    then enabling them only on the ::after pseudo-element, but it seems to work
+  */
+  pointer-events: none;
+}
+.code_wrapper::before {
+  display: block;
+  content: 'By pressing the button below the updated dataset will replace the current one and can be used for further analyses.';
+  margin-bottom: 1rem;
+}
+.code_wrapper::after {
+  display: inline-block;
+  content: 'Use Updated Data';
+  cursor: pointer;
+  background-color: lightgrey;
+  padding: 0.5rem 1rem;
+  pointer-events: auto;
+}

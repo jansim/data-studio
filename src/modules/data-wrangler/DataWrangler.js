@@ -5,10 +5,25 @@ import './DataWrangler.css'
 
 // Use variable for main state outside of vue scope to avoid errors
 let globalMain = undefined;
+let clickListener = undefined
+
+const elementSelector = '.code_wrapper'
 
 export default {
   mount (element, moduleApi) {
     const runtime = new Runtime();
+
+    // Manually update data
+    const data = moduleApi.getData()
+
+    // Update dataset in the studio
+    let updatedData = data
+    function updateDataHandler () {
+      // Use the new (and updated data)
+      moduleApi.setData(updatedData)
+
+      moduleApi.setActiveModule('viewer')
+    }
 
     const main = runtime.module(define, name => {
       // Register observers
@@ -26,11 +41,7 @@ export default {
           fulfilled: (value) => {
             // The wrangler returns an arquero dataframe with some metadata
             // For now, let's just pass the raw data itself
-            const data = value.objects()
-
-            console.warn('Note: Updating of data not yet handled!')
-            // TODO: Check for actual differences here!
-            // moduleApi.setData(data)
+            updatedData = value.objects()
           },
           rejected: (error) => {
             console.error('[Wrangler] Retrieving output data failed:', error)
@@ -44,13 +55,24 @@ export default {
     }
     globalMain = main
 
-    // Manually update data
-    const data = moduleApi.getData()
+    // Use updated dataset
     this.onDataChange(data)
+
+    clickListener = function (e) {
+      // loop parent nodes from the target to the delegation node
+      for (var target = e.target; target && target != this; target = target.parentNode) {
+        if (target.matches(elementSelector)) {
+          updateDataHandler.call(target, e);
+          break;
+        }
+      }
+    }
+    element.addEventListener('click', clickListener, false);
   },
 
   unmount (element) {
     globalMain = undefined
+    element.removeEventListener('click', clickListener);
   },
 
   onDataChange (newData) {
