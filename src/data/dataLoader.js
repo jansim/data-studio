@@ -56,10 +56,9 @@ function parseTextFile (type, contents) {
     case "CSV":
       return fromCSV(contents)
       break;
-    // TODO: check proper option name
-    // case "TSV":
-    //   // return fromCSV(contents, { separator: '\t' })
-    //   break;
+    case "TSV":
+      return fromCSV(contents, { delimiter: '\t' })
+      break;
     case "JSON":
       // Working around the weird choice in fromJSON here, that it can only
       // handle column-wise tables. This way row-wise specified JSON data also works.
