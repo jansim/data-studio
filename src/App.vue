@@ -3,7 +3,8 @@
     <Tab :id="module.id" :isActive="index === activeModuleIndex" :key="`tab-${module.id}`" :title="module.name" v-for="(module, index) in modules" @select="activeModuleIndex = index" />
   </Tabs>
 
-  <module-viewer :key="activeModule.id" :module="activeModule" @setActiveModule="setActiveModuleId"/>
+  <module-viewer v-if="!activeModule.iframe" :key="activeModule.id" :module="activeModule" @setActiveModule="setActiveModuleId"/>
+  <module-frame v-else :key="activeModule.id" :module="activeModule" @setActiveModule="setActiveModuleId"/>
 
   <DragNDropTarget/>
 </template>
@@ -15,6 +16,7 @@ import Tab from './components/Tab.vue'
 import Tabs from './components/Tabs.vue'
 
 import ModuleViewer from './components/ModuleViewer.vue'
+import ModuleFrame from './components/ModuleFrame.vue'
 import DragNDropTarget from './components/DragNDropTarget.vue'
 
 import modules from './modules'
@@ -27,6 +29,7 @@ export default {
     Tab,
     Tabs,
     ModuleViewer,
+    ModuleFrame,
     DragNDropTarget
   },
   data () {

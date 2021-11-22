@@ -18,15 +18,14 @@ let reactApp, explorerInstance
 
 export default {
   mount(element, moduleApi) {
-    const data = moduleApi.getData()
-
     const explorerProps = {
       logoClickUrl: '#',
-      mounted: explorer => {
+      mounted: async explorer => {
         // Set Instance
         explorerInstance = explorer
 
         // Load Data
+        const data = await moduleApi.getData()
         this.onDataChange(data)
       }
     }

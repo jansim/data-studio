@@ -1,7 +1,10 @@
-#module-sanddance > div {
+html,
+body {
+  margin: 0;
   height: 100%;
 }
 
+#module,
 .sanddance-explorer {
   height: 100%;
 }

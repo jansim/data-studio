@@ -17,6 +17,7 @@ export default [
   {
     id: 'sanddance',
     name: 'SandDance',
-    load: () => import('./sand-dance/sand-dance.js')
+    iframe: true,
+    url: '/iframe-modules/sanddance/'
   }
 ]
