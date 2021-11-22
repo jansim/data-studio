@@ -19,5 +19,11 @@ export default [
     name: 'SandDance',
     iframe: true,
     url: '/iframe-modules/sanddance/'
+  },
+  {
+    id: 'voyager2',
+    name: 'Voyager',
+    iframe: true,
+    url: '/prebuilt-iframe-modules/voyager2/index.html'
   }
 ]
