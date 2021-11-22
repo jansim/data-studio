@@ -37,9 +37,9 @@ export default {
       }
     }, false)
   },
-  unmounted () {
+  beforeUnmount () {
     if (this.loadedModule) {
-      this.loadedModule.unmount()
+      this.loadedModule.unmount(this.$refs.module)
 
       this.loadedModule = undefined
     }

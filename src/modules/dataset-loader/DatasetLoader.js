@@ -13,7 +13,7 @@ export default {
     instance.mount(element)
   },
 
-  unmount (element, moduleApi) {
+  unmount (element) {
     instance.unmount()
   },
 

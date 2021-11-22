@@ -21,7 +21,7 @@ export default {
     })
   },
 
-  unmount (element, moduleApi) {
+  unmount (element) {
     tableInstance = undefined
   },
 

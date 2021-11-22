@@ -49,7 +49,7 @@ export default {
     this.onDataChange(data)
   },
 
-  unmount (element, moduleApi) {
+  unmount (element) {
     globalMain = undefined
   },
 
