@@ -70,7 +70,7 @@ AVAILABLE_API_RETURN_METHODS.forEach(function (methodName) {
   }
 })
 
-function init (_module) {
+function initializeModule (_module) {
   // Initialize the module itself
   _module.mount(document.getElementById('module'), iframeModuleApi)
 
@@ -94,4 +94,6 @@ function init (_module) {
   // There is also no need to implement unmount, for the same reason as stated just above
 }
 
-export default init
+export {
+  initializeModule
+}

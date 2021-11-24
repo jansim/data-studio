@@ -1,4 +1,4 @@
-import init from '../../../src/iframeModuleApi'
+import { initializeModule } from '@data_studio/iframe'
 import voygagerModule from './voyager2.js'
 
-init(voygagerModule)
+initializeModule(voygagerModule)

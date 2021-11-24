@@ -1,0 +1,19 @@
+{
+  "name": "@data_studio/iframe",
+  "version": "1.0.0",
+  "description": "Code / API for modules that are implemented within iframes in @data_studio.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jansim/data-studio.git"
+  },
+  "author": "Jan Simson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jansim/data-studio/issues"
+  },
+  "homepage": "https://github.com/jansim/data-studio#readme"
+}
