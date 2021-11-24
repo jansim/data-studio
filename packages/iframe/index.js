@@ -51,7 +51,8 @@ AVAILABLE_API_RETURN_METHODS.forEach(function (methodName) {
   // Use a promise here to get the return value
   iframeModuleApi[methodName] = function () {
     return new Promise((resolve, reject) => {
-      const returnId = 123456 // TODO: generate this
+      // Use time (in ms) to get a unique-enough id for returns
+      const returnId = new Date().getTime()
 
       const listener = (event) => {
         const data = event.data
