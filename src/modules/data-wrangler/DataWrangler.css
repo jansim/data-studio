@@ -8,6 +8,19 @@
  display: none;
 }
 
+.results_wrapper {
+  /* Fix visual glitch of table overflowing to the left */
+  overflow: hidden;
+}
+
+.results_wrapper > form {
+  /* Show results table at full size */
+  height: auto !important;
+}
+.results_wrapper table {
+  min-width: auto;
+}
+
 /* Hide code window */
 .code_wrapper > .section_header {
   display: none !important;
