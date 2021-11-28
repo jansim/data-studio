@@ -19,7 +19,8 @@
           <span class="name"> {{ entry.name }} </span>
           <span v-if="entry.author" class="author"> {{ entry.author }} </span>
           <span v-if="entry.description" class="description"> {{ entry.description }} </span>
-          <a v-if="entry.info_url" class="info_url" :href="entry.info_url">more</a>
+          <span v-else class="description"> No description available for this dataset. </span>
+          <a v-if="entry.info_url" target="_blank" class="info_url" :href="entry.info_url">[more information]</a>
 
           <button class="load" @click="loadDataset(entry)">Load Dataset</button>
         </div>
