@@ -1,4 +1,4 @@
-import { fromCSV, from } from 'arquero'
+import { fromCSV, fromArrow, from } from 'arquero'
 
 import dataStore from '../data/dataStore'
 
@@ -34,6 +34,10 @@ async function getDataset (source) {
     const contents = await downloadTextFile(source)
     const data = parseTextFile(type, contents)
     return data
+  } else if (type === "ARROW") {
+    const bytes = await downloadBinaryFile(source)
+    const data = fromArrow(bytes)
+    return data
   } else if (type === "EXCEL") {
     // TODO: implement excel parsing
     throw "Parsing of excel files not yet supported."
@@ -49,6 +53,16 @@ async function downloadTextFile (source) {
   } else if (typeof source === "string") {
     const response = await fetch(source)
     return await response.text()
+  }
+}
+
+async function downloadBinaryFile (source) {
+  if (source instanceof File) {
+    // Local File
+    return await source.arrayBuffer()
+  } else if (typeof source === "string") {
+    const response = await fetch(source)
+    return await response.arrayBuffer()
   }
 }
 

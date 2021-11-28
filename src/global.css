@@ -52,3 +52,8 @@ p, h1, h2, h3, h4, h5, h6 {
 #app {
   isolation: isolate;
 }
+
+a[title] {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+}

@@ -4,8 +4,8 @@
       There are multiple ways here to load data. You can...
 
       <ol>
-        <li>Drag and Drop a CSV, TSV or JSON file to load it anytime.</li>
-        <li>Enter a URL <input v-model="url" type="text" name="url-to-load" id="url-to-load"> and click <button @click="loadURL(url)">here</button> to load it. <br> Supported file types are CSV, TSV and JSON. Excel file support is planned in the future.</li>
+        <li>Drag and Drop a file to load it anytime.</li>
+        <li>Enter a URL <input v-model="url" type="text" name="url-to-load" id="url-to-load"> and click <button @click="loadURL(url)">here</button> to load it. <br> Supported file types are CSV, TSV, JSON and <a title="Apache Arrow IPC Stream Format">Arrow</a>. Excel file support is planned in the future.</li>
         <li>Select a dataset from the data library below.</li>
       </ol>
     </div>
