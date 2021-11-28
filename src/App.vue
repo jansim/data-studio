@@ -19,7 +19,7 @@ import ModuleViewer from './components/ModuleViewer.vue'
 import ModuleFrame from './components/ModuleFrame.vue'
 import DragNDropTarget from './components/DragNDropTarget.vue'
 
-import modules from './modules'
+import modules from '../modules'
 
 import dataStore from './data/dataStore'
 

@@ -1,4 +1,4 @@
 import { initializeModule } from '@data_studio/iframe'
-import sandDanceModule from './sand-dance.js'
+import sandDanceModule from './index.js'
 
 initializeModule(sandDanceModule)

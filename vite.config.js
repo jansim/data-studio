@@ -12,7 +12,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        nested: resolve(__dirname, 'iframe-modules/sanddance/index.html')
+        nested: resolve(__dirname, 'modules/iframe/module-sanddance/index.html')
       },
       output: {
         // Use an underscore here instead of dot between name and hash to avoid

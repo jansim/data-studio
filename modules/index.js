@@ -2,28 +2,28 @@ export default [
   {
     id: 'loader',
     name: 'Loader',
-    load: () => import('./dataset-loader/DatasetLoader.js')
+    load: () => import('./internal/module-loader/index.js')
   },
   {
     id: 'viewer',
     name: 'Viewer',
-    load: () => import('./DataViewer.js')
+    load: () => import('./internal/module-viewer/index.js')
   },
   {
     id: 'wrangler',
     name: 'Wrangler',
-    load: () => import('./data-wrangler/DataWrangler.js')
+    load: () => import('./internal/module-wrangler/index.js')
   },
   {
     id: 'sanddance',
     name: 'SandDance',
     iframe: true,
-    url: '/iframe-modules/sanddance/'
+    url: '/modules/iframe/module-sanddance/index.html'
   },
   {
     id: 'voyager2',
     name: 'Voyager',
     iframe: true,
-    url: '/prebuilt-iframe-modules/voyager2/index.html'
+    url: '/modules-iframe-prebuilt/module-voyager2/index.html'
   }
 ]
