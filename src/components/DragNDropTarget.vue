@@ -34,7 +34,7 @@ export default {
     onDrop (event) {
       event.preventDefault();
 
-      loadDatasets(event.dataTransfer.files)
+      loadDatasets(Array.from(event.dataTransfer.files))
 
       this.currentlyDragging = false;
     }
