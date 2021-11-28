@@ -21,6 +21,12 @@ export default [
     url: '/modules/iframe/module-sanddance/index.html'
   },
   {
+    id: 'spreadsheet',
+    name: 'Spreadsheet',
+    iframe: true,
+    url: '/modules-iframe-prebuilt/module-spreadsheet/index.html'
+  },
+  {
     id: 'voyager2',
     name: 'Voyager',
     iframe: true,
