@@ -79,6 +79,7 @@ const DATA_SOURCES = [
         }
         const newEntry = {
           name,
+          info_url: `https://github.com/owid/owid-datasets/tree/master/datasets/${urlSafeName}/`,
           // Generating url from name alone here
           // TODO: It will be safer to actually follow the API in entry.url here to get actual filenames in the future
           url: `https://raw.githubusercontent.com/owid/owid-datasets/master/datasets/${urlSafeName}/${urlSafeName}.csv`
