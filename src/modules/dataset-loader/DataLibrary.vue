@@ -18,6 +18,8 @@
         <div :key="activeSource.name + '-' + entry.name" class="entry" v-for="entry in activeSource.entries">
           <span class="name"> {{ entry.name }} </span>
           <span v-if="entry.author" class="author"> {{ entry.author }} </span>
+          <span v-if="entry.description" class="description"> {{ entry.description }} </span>
+          <a v-if="entry.info_url" class="info_url" :href="entry.info_url">more</a>
 
           <button class="load" @click="loadDataset(entry)">Load Dataset</button>
         </div>
@@ -32,14 +34,25 @@ const DATA_SOURCES = [
     name: 'Example Datasets',
     entries: [
       {
-        name: 'mtcars',
-        author: 'Motor Trend US magazine',
+        name: 'mtcars: Motor Trend Car Road Tests',
+        author: 'Motor Trend US magazine (1974)',
+        description: 'The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973-74 models).',
+        info_url: 'https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html',
         url: '/data/example/mtcars.csv'
       },
       {
-        name: 'movies',
-        author: 'Vega imdb Movie-Rating Example Dataset',
-        url: 'https://vega.github.io/vega-datasets/data/movies.json'
+        name: 'Palmer Penguins',
+        author: 'Dr. Kristen Gorman and the Palmer Station, Antarctica LTER, a member of the Long Term Ecological Research Network.',
+        description: 'The goal of palmerpenguins is to provide a great dataset for data exploration & visualization, as an alternative to iris.',
+        info_url: 'https://allisonhorst.github.io/palmerpenguins/articles/intro.html',
+        url: '/data/example/penguins.json'
+      },
+      {
+        name: 'quakes: Locations of Earthquakes off Fiji',
+        author:  'Dr. John Woodhouse',
+        description: 'The data set give the locations of 1000 seismic events of MB > 4.0. The events occurred in a cube near Fiji since 1964.',
+        info_url: 'https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/quakes.html',
+        url: '/data/example/quakes.arrow'
       }
     ]
   },
@@ -144,5 +157,14 @@ export default {
 .entry .author {
   font-style: italic;
   margin-right: 0.5rem;
+}
+.entry .author,
+.entry .description {
+  display: block;
+}
+.entry .author,
+.entry .description,
+.entry .info_url {
+  padding-right: 0.5em;
 }
 </style>
