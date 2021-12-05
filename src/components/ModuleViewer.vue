@@ -30,18 +30,22 @@ export default {
       this.loadedModule.mount(this.$refs.module, moduleApi)
     })
 
-    // TODO: unregister this listener!
-    dataStore.watch(TEMP_FIXED_DATASETKEY, (newData) => {
-      if (this.loadedModule) {
-        this.loadedModule.onDataChange(newData)
-      }
-    }, false)
+    dataStore.watch(TEMP_FIXED_DATASETKEY, this.onDataChange, false)
   },
   beforeUnmount () {
     if (this.loadedModule) {
       this.loadedModule.unmount(this.$refs.module)
 
       this.loadedModule = undefined
+    }
+
+    dataStore.unwatch(TEMP_FIXED_DATASETKEY, this.onDataChange)
+  },
+  methods: {
+    onDataChange (newData) {
+      if (this.loadedModule) {
+        this.loadedModule.onDataChange(newData)
+      }
     }
   }
 }

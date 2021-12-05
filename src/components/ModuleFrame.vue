@@ -26,17 +26,15 @@ export default {
   mounted () {
     this.moduleApi = new ModuleApi(this, true)
 
-    // TODO: deal with the fact, that these are sent to the window
+    // Note: Listener is attached to window globally, as it will receive messages
     window.addEventListener('message', this.onMessage)
 
-    // TODO: unregister this listener!
-    dataStore.watch(TEMP_FIXED_DATASETKEY, (newData) => {
-      this.$refs.iframe.contentWindow.postMessage({
-        type: 'ModuleApiChildCall',
-        methodName: 'onDataChange',
-        arguments: [newData]
-      }), '*'
-    }, false)
+    dataStore.watch(TEMP_FIXED_DATASETKEY, this.onDataChange, false)
+  },
+  beforeUnmount () {
+    window.removeEventListener('message', this.onMessage)
+
+    dataStore.unwatch(TEMP_FIXED_DATASETKEY, this.onDataChange)
   },
   methods: {
     onMessage (event) {
@@ -58,6 +56,14 @@ export default {
           event.source.postMessage(JSON.parse(JSON.stringify(dataToSend)), '*')
         }
       }
+    },
+
+    onDataChange (newData) {
+      this.$refs.iframe.contentWindow.postMessage({
+        type: 'ModuleApiChildCall',
+        methodName: 'onDataChange',
+        arguments: [newData]
+      }), '*'
     }
   }
 }

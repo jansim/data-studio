@@ -41,6 +41,9 @@ class DataStore {
       callback(this.get(name))
     }
   }
+  unwatch (name, callback) {
+    this.listeners[name].splice(this.listeners[name].indexOf(callback), 1)
+  }
   notifyListeners (name) {
     const data = this.get(name)
     this.listeners[name].forEach(callback => callback(data))
