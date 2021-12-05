@@ -1,9 +1,11 @@
 <template>
-  <Tabs default="viewer">
-    <TabGroup :name="group.group_name" :key="group.group_name" v-for="group in moduleGroups">
-      <Tab :id="module.id" :isActive="module.id === activeModule.id" :key="`tab-${module.id}`" :title="module.name" v-for="module in group.modules" @select="setActiveModuleId(module.id)" />
-    </TabGroup>
-  </Tabs>
+  <Nav>
+    <Tabs default="viewer">
+      <TabGroup :name="group.group_name" :key="group.group_name" v-for="group in moduleGroups">
+        <Tab :id="module.id" :isActive="module.id === activeModule.id" :key="`tab-${module.id}`" :title="module.name" v-for="module in group.modules" @select="setActiveModuleId(module.id)" />
+      </TabGroup>
+    </Tabs>
+  </Nav>
 
   <module-viewer v-if="!activeModule.iframe" :key="activeModule.id" :module="activeModule" @setActiveModule="setActiveModuleId"/>
   <module-frame v-else :key="activeModule.id" :module="activeModule" @setActiveModule="setActiveModuleId"/>
@@ -14,6 +16,7 @@
 <script>
 import "./global.css"
 
+import Nav from './components/Nav.vue'
 import Tab from './components/Tab.vue'
 import Tabs from './components/Tabs.vue'
 import TabGroup from './components/TabGroup.vue'
@@ -29,6 +32,7 @@ import dataStore from './data/dataStore'
 export default {
   name: 'App',
   components: {
+    Nav,
     Tab,
     Tabs,
     TabGroup,

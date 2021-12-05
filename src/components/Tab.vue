@@ -32,7 +32,7 @@ export default {
 
 <style lang="css" scoped>
 .tab {
-  padding: .5rem 1rem;
+  padding: .5rem .75rem;
   cursor: pointer;
 }
 
