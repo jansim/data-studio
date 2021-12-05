@@ -1,0 +1,36 @@
+{
+  "name": "@data_studio/kepler.gl",
+  "version": "1.0.0",
+  "description": "Kepler.gl module for data studio.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "build:dev": "export NODE_ENV=development && webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@data_studio/iframe": "^1.0.1",
+    "global": "^4.3.0",
+    "kepler.gl": "^2.5.5",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "react-palm": "^3.3.6",
+    "react-redux": "^7.1.3",
+    "react-virtualized": "^9.21.0",
+    "redux-actions": "^2.2.1",
+    "styled-components": "^4.1.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.1",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.1",
+    "babel-loader": "^8.0.0",
+    "dotenv": "^10.0.0",
+    "esbuild": "^0.14.0",
+    "webpack": "^4.29.0",
+    "webpack-cli": "4.0.0-beta.9"
+  }
+}

@@ -31,5 +31,11 @@ export default [
     name: 'Voyager',
     iframe: true,
     url: '/modules-iframe-prebuilt/module-voyager2/index.html'
+  },
+  {
+    id: 'kepler.gl',
+    name: 'Kepler.gl',
+    iframe: true,
+    url: '/modules-iframe-prebuilt/module-kepler.gl/index.html'
   }
 ]
