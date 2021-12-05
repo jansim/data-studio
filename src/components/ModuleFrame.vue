@@ -66,8 +66,6 @@ export default {
 <style lang="css" scoped>
 .module-frame {
   flex-grow: 1;
-
-  padding: 10px;
 }
 
 .module-frame > iframe {

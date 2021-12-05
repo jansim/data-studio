@@ -52,7 +52,5 @@ export default {
   /* MH0 is used here, to make sure the module-view doesn't overflow */
   min-height: 0;
   flex-grow: 1;
-
-  padding: 10px;
 }
 </style>
