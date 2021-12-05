@@ -1,41 +1,58 @@
-export default [
+const moduleGroups = [
   {
-    id: 'loader',
-    name: 'Loader',
-    load: () => import('./internal/module-loader/index.js')
+    group_name: 'Manipulate Data',
+    modules: [
+      {
+        id: 'loader',
+        name: 'Load Data',
+        load: () => import('./internal/module-loader/index.js')
+      },
+      {
+        id: 'viewer',
+        name: 'View',
+        load: () => import('./internal/module-viewer/index.js')
+      },
+      {
+        id: 'spreadsheet',
+        name: 'Spreadsheet',
+        iframe: true,
+        url: '/modules-iframe-prebuilt/module-spreadsheet/index.html'
+      },
+      {
+        id: 'wrangler',
+        name: 'Wrangle',
+        load: () => import('./internal/module-wrangler/index.js')
+      },
+    ]
   },
   {
-    id: 'viewer',
-    name: 'Viewer',
-    load: () => import('./internal/module-viewer/index.js')
-  },
-  {
-    id: 'wrangler',
-    name: 'Wrangler',
-    load: () => import('./internal/module-wrangler/index.js')
-  },
-  {
-    id: 'sanddance',
-    name: 'SandDance',
-    iframe: true,
-    url: '/modules/iframe/module-sanddance/index.html'
-  },
-  {
-    id: 'spreadsheet',
-    name: 'Spreadsheet',
-    iframe: true,
-    url: '/modules-iframe-prebuilt/module-spreadsheet/index.html'
-  },
-  {
-    id: 'voyager2',
-    name: 'Voyager',
-    iframe: true,
-    url: '/modules-iframe-prebuilt/module-voyager2/index.html'
-  },
-  {
-    id: 'kepler.gl',
-    name: 'Kepler.gl',
-    iframe: true,
-    url: '/modules-iframe-prebuilt/module-kepler.gl/index.html'
+    group_name: 'Visualize',
+    modules: [
+      {
+        id: 'sanddance',
+        name: 'SandDance',
+        iframe: true,
+        url: '/modules/iframe/module-sanddance/index.html'
+      },
+      {
+        id: 'voyager2',
+        name: 'Voyager',
+        iframe: true,
+        url: '/modules-iframe-prebuilt/module-voyager2/index.html'
+      },
+      {
+        id: 'kepler.gl',
+        name: 'Kepler.gl',
+        iframe: true,
+        url: '/modules-iframe-prebuilt/module-kepler.gl/index.html'
+      },
+    ]
   }
 ]
+
+const modules = moduleGroups.reduce((previous, current) => [...previous.modules, ...current.modules])
+
+export {
+  moduleGroups,
+  modules
+}

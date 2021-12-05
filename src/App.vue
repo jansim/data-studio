@@ -1,6 +1,8 @@
 <template>
   <Tabs default="viewer">
-    <Tab :id="module.id" :isActive="index === activeModuleIndex" :key="`tab-${module.id}`" :title="module.name" v-for="(module, index) in modules" @select="activeModuleIndex = index" />
+    <TabGroup :name="group.group_name" :key="group.group_name" v-for="group in moduleGroups">
+      <Tab :id="module.id" :isActive="module.id === activeModule.id" :key="`tab-${module.id}`" :title="module.name" v-for="module in group.modules" @select="setActiveModuleId(module.id)" />
+    </TabGroup>
   </Tabs>
 
   <module-viewer v-if="!activeModule.iframe" :key="activeModule.id" :module="activeModule" @setActiveModule="setActiveModuleId"/>
@@ -14,12 +16,13 @@ import "./global.css"
 
 import Tab from './components/Tab.vue'
 import Tabs from './components/Tabs.vue'
+import TabGroup from './components/TabGroup.vue'
 
 import ModuleViewer from './components/ModuleViewer.vue'
 import ModuleFrame from './components/ModuleFrame.vue'
 import DragNDropTarget from './components/DragNDropTarget.vue'
 
-import modules from '../modules'
+import { moduleGroups, modules } from '../modules'
 
 import dataStore from './data/dataStore'
 
@@ -28,13 +31,15 @@ export default {
   components: {
     Tab,
     Tabs,
+    TabGroup,
     ModuleViewer,
     ModuleFrame,
     DragNDropTarget
   },
   data () {
     return {
-      modules: modules,
+      modules,
+      moduleGroups,
       activeModuleIndex: 0
     }
   },
