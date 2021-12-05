@@ -26,7 +26,8 @@ export default {
 }
 .tab-group-name {
   position: absolute;
-  top: 0;
-  /* left: 0; */
+  top: 0.25rem;
+  left: 0.75rem;
+  font-size: 0.8rem;
 }
 </style>
