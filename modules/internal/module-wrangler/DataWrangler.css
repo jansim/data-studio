@@ -1,3 +1,7 @@
+.wrangler {
+  padding: 0.75rem;
+}
+
 /* Hide the header */
 #minimal-datawrangler-wrapper {
   display: none;
