@@ -26,7 +26,7 @@ const moduleGroups = [
     ]
   },
   {
-    group_name: 'Visualize',
+    group_name: 'Visualize Data',
     modules: [
       {
         id: 'sanddance',
