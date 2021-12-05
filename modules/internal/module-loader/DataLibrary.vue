@@ -96,6 +96,7 @@ const DATA_SOURCES = [
 
 export default {
   name: 'DataLibrary',
+  emits: ['load'],
   data () {
     return {
       sources: DATA_SOURCES,

@@ -45,5 +45,7 @@ export default {
 .data-loader {
   max-height: 100%;
   overflow: auto;
+
+  padding: 0.75rem;
 }
 </style>
