@@ -7,7 +7,7 @@
     "preview-built": "vite preview"
   },
   "dependencies": {
-    "@data_studio/iframe": "^1.0.1",
+    "@data_studio/iframe": "^1.0.2",
     "@deck.gl/core": "^8.6.4",
     "@deck.gl/layers": "^8.6.4",
     "@fluentui/react": "^7.179.4",

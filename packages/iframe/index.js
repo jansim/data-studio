@@ -80,7 +80,7 @@ function initializeModule (_module) {
 
     if (data.type === 'ModuleApiChildCall') {
       if (data.methodName in _module) {
-        _module[methodName](...event.data.arguments)
+        _module[data.methodName](...event.data.arguments)
       } else {
         console.error('Trying to call unsupported ModuleApiChildCall-Method')
       }
