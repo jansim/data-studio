@@ -12,8 +12,6 @@ export default {
     app.provide('moduleApi', moduleApi)
 
     vm = app.mount(element)
-
-    console.log(app)
   },
 
   unmount (element) {
