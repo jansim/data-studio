@@ -10,6 +10,7 @@ const moduleGroups = [
       {
         id: 'viewer',
         name: 'View',
+        datasetFormat: 'data-with-info',
         load: () => import('./internal/module-viewer/index.js')
       },
       {
