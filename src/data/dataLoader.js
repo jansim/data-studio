@@ -2,7 +2,7 @@ import { fromCSV, fromArrow, from } from 'arquero'
 
 import dataStore from '../data/dataStore'
 
-const TEMP_FIXED_DATASETKEY = 'test'
+const DEFAULT_DATASET_ID = 'Default Dataset'
 
 const textFileTypes = [
   'CSV',
@@ -10,21 +10,34 @@ const textFileTypes = [
   'JSON'
 ]
 
-function loadDatasets (sources) {
+async function loadDatasets (sources) {
   // Convenience function to load multiple datasets
-  // TODO: implement support for loading multiple datasets
   if (Array.isArray(sources)) {
-    loadDataset(sources[0])
+    const promises = sources.map(src => loadDataset(src))
+
+    await Promise.all(promises)
+
+    return true
   } else {
     throw "Type mismatch: loadDatasets expects an array of sources. No array was provided."
   }
 }
 
-async function loadDataset (source) {
-  const dataset = await getDataset(source)
+async function loadDataset ({ url, id = DEFAULT_DATASET_ID, title, description, info = {}}) {
+  const dataset = await getDataset(url)
+
+  // Extra information about the dataset
+  const datasetInfo = {
+    ...info,
+    title,
+    description
+  }
 
   // Add dataset to store
-  dataStore.set(TEMP_FIXED_DATASETKEY, dataset.objects())
+  dataStore.set(id, dataset.objects(), datasetInfo)
+  dataStore.setActiveDataset(id)
+
+  return true
 }
 
 async function getDataset (source) {
@@ -112,5 +125,6 @@ function detectFileType (source) {
 }
 
 export {
+  loadDataset,
   loadDatasets
 }

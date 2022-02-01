@@ -1,4 +1,8 @@
 <template>
+  <div v-if="loading" class="loading">
+    Loading data...
+  </div>
+
   <div class="data-loader">
     <div class="intro">
       There are multiple ways here to load data. You can...
@@ -10,7 +14,7 @@
       </ol>
     </div>
 
-    <DataLibrary @load="loadURL($event.url)"/>
+    <DataLibrary @load="loadLibraryEntry($event)"/>
   </div>
 </template>
 
@@ -25,12 +29,36 @@ export default {
   },
   data () {
     return {
-      url: ''
+      url: '',
+      loading: false
     }
   },
   methods: {
     loadURL (url) {
-      this.moduleApi.loadDatasets([url])
+      const basename = url.split('/').pop() || url
+
+      this.load({
+        id: basename,
+        name: basename,
+        description: `Dataset loaded from URL: "${url}"`,
+        url
+      })
+    },
+    loadLibraryEntry (entry) {
+      this.load({
+        id: entry.name,
+        title: entry.name,
+        description: entry.description,
+
+        url: entry.url
+      })
+    },
+    async load (source) {
+      this.loading = true
+
+      await this.moduleApi.loadDataset(source)
+
+      this.loading = false
 
       this.goToViewer()
     },

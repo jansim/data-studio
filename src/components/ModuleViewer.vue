@@ -18,19 +18,20 @@ export default {
   },
   data () {
     return {
+      moduleApi: null,
       loadedModule: undefined
     }
   },
   mounted () {
-    const moduleApi = new ModuleApi(this)
+    this.moduleApi = new ModuleApi(this.module, this)
 
     this.module.load().then((loadedModule) => {
       this.loadedModule = loadedModule.default
 
-      this.loadedModule.mount(this.$refs.module, moduleApi)
+      this.loadedModule.mount(this.$refs.module, this.moduleApi)
     })
 
-    dataStore.watch(TEMP_FIXED_DATASETKEY, this.onDataChange, false)
+    dataStore.watchActiveDataset(this.onDataChange, false)
   },
   beforeUnmount () {
     if (this.loadedModule) {
@@ -39,11 +40,12 @@ export default {
       this.loadedModule = undefined
     }
 
-    dataStore.unwatch(TEMP_FIXED_DATASETKEY, this.onDataChange)
+    dataStore.unwatchActiveDataset(this.onDataChange)
   },
   methods: {
-    onDataChange (newData) {
+    onDataChange () {
       if (this.loadedModule) {
+        const newData = this.moduleApi.getData()
         this.loadedModule.onDataChange(newData)
       }
     }

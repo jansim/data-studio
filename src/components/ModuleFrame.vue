@@ -8,8 +8,6 @@
 import dataStore from '../data/dataStore'
 import ModuleApi from '../ModuleApi'
 
-const TEMP_FIXED_DATASETKEY = 'test'
-
 export default {
   name: 'ModuleFrame',
   props: {
@@ -24,17 +22,17 @@ export default {
     }
   },
   mounted () {
-    this.moduleApi = new ModuleApi(this, true)
+    this.moduleApi = new ModuleApi(this.module, this, true)
 
     // Note: Listener is attached to window globally, as it will receive messages
     window.addEventListener('message', this.onMessage)
 
-    dataStore.watch(TEMP_FIXED_DATASETKEY, this.onDataChange, false)
+    dataStore.watchActiveDataset(this.onDataChange, false)
   },
   beforeUnmount () {
     window.removeEventListener('message', this.onMessage)
 
-    dataStore.unwatch(TEMP_FIXED_DATASETKEY, this.onDataChange)
+    dataStore.unwatchActiveDataset(this.onDataChange)
   },
   methods: {
     onMessage (event) {
@@ -58,7 +56,9 @@ export default {
       }
     },
 
-    onDataChange (newData) {
+    onDataChange () {
+      const newData = this.moduleApi.getData()
+
       this.$refs.iframe.contentWindow.postMessage({
         type: 'ModuleApiChildCall',
         methodName: 'onDataChange',
