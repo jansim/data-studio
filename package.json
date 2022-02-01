@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "preview-built": "vite preview"
   },
   "dependencies": {
     "@data_studio/iframe": "^1.0.1",
