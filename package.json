@@ -15,9 +15,9 @@
     "@msrvida/sanddance-explorer": "^3",
     "@observablehq/runtime": "^4.18.0",
     "arquero": "^4.8.7",
-    "frappe-datatable": "^1.15.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "tabulator-tables": "^5.1.0",
     "vega": "^5.17.0",
     "vue": "^3.2.22"
   },
