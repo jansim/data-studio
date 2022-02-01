@@ -1,11 +1,12 @@
 <template>
-  <div class="tabulator-wrap">
-    <div ref="table" />
-  </div>
+  <div ref="table" />
 </template>
 
 <script>
 import  "tabulator-tables/dist/css/tabulator_simple.min.css";
+
+// Only for development
+// import {TabulatorFull as Tabulator} from 'tabulator-tables';
 
 import {
   Tabulator,
@@ -40,6 +41,7 @@ export default {
     ]
 
     this.tableInstance = new Tabulator(this.$refs.table, {
+      height: "100%",
       movableColumns: true,
       autoColumns: true,
       autoColumnsDefinitions: (definitions) => {

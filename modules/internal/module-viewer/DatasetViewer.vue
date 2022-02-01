@@ -1,19 +1,23 @@
 <template>
   <div class="dataset-viewer">
-    <span class="dataset-id"> {{info.id}} </span>
+    <div class="top-bar">
+      <span class="dataset-id"> {{info.id}} </span>
 
-    <button @click="showInfo = !showInfo">
-      <span v-if="!showInfo">Show</span>
-      <span v-else>Hide</span>
-      more info
-    </button>
+      <button @click="showInfo = !showInfo">
+        <span v-if="!showInfo">Show</span>
+        <span v-else>Hide</span>
+        more info
+      </button>
 
-    <div class="info" v-show="showInfo">
-      <h2 v-if="info.title"> Name: {{info.title}} </h2>
-      <p v-if="info.description"> Description: {{info.description}} </p>
+      <div class="info" v-show="showInfo">
+        <h2 v-if="info.title"> Name: {{info.title}} </h2>
+        <p v-if="info.description"> Description: {{info.description}} </p>
+      </div>
     </div>
 
-    <Tabulator :key="info.id" v-if="data" :data="data" />
+    <div class="table-container">
+      <Tabulator :key="info.id" v-if="data" :data="data" />
+    </div>
   </div>
 </template>
 
@@ -53,8 +57,20 @@ export default {
 
 <style lang="css" scoped>
 .dataset-viewer {
-  display: inline-block;
+  box-sizing: border-box;
+  display: flex;
   padding: 1rem;
+  flex-direction: column;
+  height: 100%;
+}
+
+.top-bar {
+  padding-bottom: 1rem;
+}
+
+.table-container {
+  flex: 1 1 100%;
+  overflow: hidden;
 }
 
 .dataset-id {
