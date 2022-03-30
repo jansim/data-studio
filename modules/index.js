@@ -42,6 +42,12 @@ const moduleGroups = [
         url: '/modules-iframe-prebuilt/module-voyager2/index.html'
       },
       {
+        id: 'perspective',
+        name: 'Perspective',
+        iframe: true,
+        url: '/modules-iframe-prebuilt/module-perspective/index.html'
+      },
+      {
         id: 'kepler.gl',
         name: 'Kepler.gl',
         iframe: true,
