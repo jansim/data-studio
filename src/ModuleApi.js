@@ -1,5 +1,5 @@
 import dataStore from './data/dataStore'
-import { loadDataset, loadDatasets } from './data/dataLoader'
+import { loadDataset, loadDatasets, loadDatasetFromText } from './data/dataLoader'
 
 // The interface supplied with which modules can interact
 // with the rest of the application
@@ -56,6 +56,15 @@ class ModuleApi {
    */
   async loadDatasets (sources) {
     return await loadDatasets(sources)
+  }
+  /**
+   * Load a new dataset from raw text
+   * @param {*} options An object with more information about the data (e.g. title, description)
+   * @param {String} options.textData The raw text data to parse
+   * @returns The loaded dataset
+   */
+   loadDatasetFromText (options) {
+    return loadDatasetFromText(options)
   }
 
   /**

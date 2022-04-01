@@ -79,6 +79,73 @@ async function downloadBinaryFile (source) {
   }
 }
 
+async function loadDatasetFromText ({ textData, id = DEFAULT_DATASET_ID, title, description, info = {}}) {
+  let dataset
+  try {
+    dataset = getDatasetFromText(textData)
+  } catch (error) {
+    return {
+      error,
+      success: false
+    }
+  }
+
+  // Extra information about the dataset
+  const datasetInfo = {
+    ...info,
+    title,
+    description
+  }
+
+  // Add dataset to store
+  dataStore.set(id, dataset.objects(), datasetInfo)
+  dataStore.setActiveDataset(id)
+
+  return {
+    success: true
+  }
+}
+
+function getDatasetFromText (textData, options) {
+  const type = guessFileTypeFromText(textData)
+  const data = parseTextFile(type, textData)
+  return data
+}
+
+function guessFileTypeFromText(textData, numberOfRowsToCheck = 3) {
+  const lineDelimiter = '\n'
+  const rows = textData.split(lineDelimiter).slice(0, numberOfRowsToCheck)
+  const counters = [
+    {
+      count: 0,
+      character: ',',
+      type: 'CSV',
+      multiplier: 1
+    },
+    {
+      count: 0,
+      character: '\t',
+      type: 'TSV',
+      multiplier: 2
+    },
+    {
+      count: 0,
+      character: '{',
+      type: 'JSON',
+      multiplier: 4
+    },
+  ]
+  rows.forEach(row => {
+    counters.forEach(counter => {
+      counter.count += (row.match(new RegExp(counter.character, "g")) || []).length * counter.multiplier
+    })
+  })
+  const maxCounter = counters.reduce(function(prev, current) {
+      return (prev.count > current.count) ? prev : current
+  })
+  return maxCounter.type
+}
+
 function parseTextFile (type, contents) {
   switch (type) {
     case "CSV":
@@ -126,5 +193,6 @@ function detectFileType (source) {
 
 export {
   loadDataset,
+  loadDatasetFromText,
   loadDatasets
 }

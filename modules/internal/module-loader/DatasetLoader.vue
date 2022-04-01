@@ -10,6 +10,11 @@
       <ol>
         <li>Drag and Drop a file to load it anytime.</li>
         <li>Enter a URL <input v-model="url" type="text" name="url-to-load" id="url-to-load"> and click <button @click="loadURL(url)">here</button> to load it. <br> Supported file types are CSV, TSV, JSON and <a title="Apache Arrow IPC Stream Format">Arrow</a>. Excel file support is planned in the future.</li>
+        <li>
+          Paste your data below and it will <span v-if="!loadTextDataOnPaste">not</span> be <input v-model="loadTextDataOnPaste" type="checkbox"> loaded automatically. <span v-if="!loadTextDataOnPaste">Click <button @click="loadText(textData)">here</button> to load it.</span> <br/>
+          <textarea @paste="loadTextDataOnPaste && $nextTick(() => loadText(textData))" v-model="textData" name="text-data-to-load" id="text-data-to-load" cols="70" rows="5"></textarea> <br>
+          Supported file types are CSV, TSV, JSON. The file type will be guessed.
+        </li>
         <li>Select a dataset from the data library below.</li>
       </ol>
     </div>
@@ -30,6 +35,8 @@ export default {
   data () {
     return {
       url: '',
+      loadTextDataOnPaste: true,
+      textData: '',
       loading: false
     }
   },
@@ -61,6 +68,18 @@ export default {
       this.loading = false
 
       this.goToViewer()
+    },
+    async loadText (textData) {
+      const { success } = await this.moduleApi.loadDatasetFromText({
+        textData,
+        id: 'Pasted Data',
+        title: 'Pasted Clipboard Data',
+        description: 'Data which was passed in text format into the application.'
+      })
+
+      if (success) {
+        this.goToViewer()
+      }
     },
     goToViewer () {
       this.moduleApi.setActiveModule('viewer')
