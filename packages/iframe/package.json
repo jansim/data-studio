@@ -1,6 +1,6 @@
 {
   "name": "@data_studio/iframe",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Code / API for modules that are implemented within iframes in @data_studio.",
   "main": "index.js",
   "scripts": {

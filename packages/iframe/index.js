@@ -46,10 +46,10 @@ AVAILABLE_API_METHODS.forEach(methodName => {
   }
 })
 AVAILABLE_API_RETURN_METHODS.forEach(function (methodName) {
-  const _arguments = arguments
-
   // Use a promise here to get the return value
   iframeModuleApi[methodName] = function () {
+    const _arguments = arguments
+
     return new Promise((resolve, reject) => {
       // Use time (in ms) to get a unique-enough id for returns
       const returnId = new Date().getTime()
