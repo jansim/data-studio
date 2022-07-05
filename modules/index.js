@@ -24,6 +24,12 @@ const moduleGroups = [
         name: 'Wrangle',
         load: () => import('./internal/module-wrangler/index.js')
       },
+      {
+        id: 'pivot',
+        name: 'PivotTable',
+        iframe: true,
+        url: '/modules-iframe-prebuilt/module-pivottable/index.html'
+      },
     ]
   },
   {
