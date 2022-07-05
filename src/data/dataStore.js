@@ -99,7 +99,7 @@ class DataStore {
   }
   /**
    * Delete a dataset from the store
-   * @param {string} id Dataset id
+   * @param {string} id Dataset Identifier
    */
   delete(id) {
     delete this.store[id]
@@ -108,15 +108,31 @@ class DataStore {
     this.notifyNameListeners()
   }
 
+  /**
+   * Register a listener / callback to be triggered when a dataset changes.
+   * @param {string} id Dataset Identifier
+   * @param {function} callback Callback function to call when the dataset changes
+   * @param {boolean} immediate Should the callback be triggered once immediately?
+   */
   watch (id, callback, immediate = true) {
     this.checkListener(id)
     this.listeners[id].push(callback)
 
     if (immediate) { this.call(id, callback) }
   }
+  /**
+   * Remove a listener watching a dataset.
+   * @param {string} id Dataset Identifier
+   * @param {function} callback Callback function to remove
+   */
   unwatch (id, callback) {
     this.listeners[id].splice(this.listeners[id].indexOf(callback), 1)
   }
+  /**
+   * Trigger all listeners for a given dataset.
+   * (internal)
+   * @param {string} id Dataset Identifier
+   */
   notifyListeners (id) {
     this.listeners[id].forEach(callback => this.call(id, callback))
 
@@ -125,15 +141,26 @@ class DataStore {
       this.notifyActiveDatasetListeners()
     }
   }
-  call (id, callback) {
-    const dataset = this.get(id)
+  /**
+   * Trigger a callback function with the given dataset.
+   * (internal)
+   * @param {string} id Dataset Identifier
+   * @param {function} callback Callback function to trigger
+   * @param {object} getOptions Options to be used when retrieving the dataset.
+   */
+  call (id, callback, getOptions = {}) {
+    const dataset = this.get({...getOptions, id})
     callback(dataset)
   }
 
   // Note: using an array for activeDatasetIds here, to possibly support
   // multiple simultaneously active datasets in the future
   activeDatasetIds = []
-  setActiveDataset(id, index = 0) {
+  /**
+   * Activate a dataset
+   * @param {string} id Dataset Identifier
+   */
+  setActiveDataset(id) {
     if (0 in this.activeDatasetIds && this.activeDatasetIds[0] === id) {
       // Don't do anything if it's the same dataset!
       return
@@ -143,19 +170,44 @@ class DataStore {
     this.notifyActiveDatasetIdsListeners()
     this.notifyActiveDatasetListeners()
   }
-  activeDatasetListeners = []
+  activeDatasetListeners = []/**
+  * Register a listener / callback to be triggered when the active dataset changes.
+  * As opposed to the listeners on specific datasets, which only trigger when the
+  * dataset itself changes, these functions are trigered much more often, as they
+  * also trigger when a different dataset becomes activated.
+  * @param {function} callback Callback function to call when the dataset changes
+  * @param {boolean} immediate Should the callback be triggered once immediately?
+  */
   watchActiveDataset (callback, immediate = true) {
     this.activeDatasetListeners.push(callback)
 
     if (immediate) { this.call(id, callback) }
   }
+  /**
+   * Remove a listener watching for the active dataset.
+   * @param {function} callback Callback function to remove
+   */
   unwatchActiveDataset (callback) {
     this.activeDatasetListeners.splice(this.activeDatasetListeners.indexOf(callback), 1)
   }
+  /**
+   * Trigger all listeners for the active dataset.
+   * (internal)
+   */
   notifyActiveDatasetListeners () {
     this.activeDatasetListeners.forEach(callback => this.callActiveDataset(callback))
   }
-  callActiveDataset (callback) { this.call(this.getActiveId(), callback) }
+  /**
+   * Trigger a callback function with the active dataset.
+   * (internal)
+   * @param {function} callback Callback function to trigger
+   * @param {object} getOptions Options to be used when retrieving the dataset.
+   */
+  callActiveDataset (callback, getOptions = {}) { this.call(this.getActiveId(), callback, getOptions) }
+  /**
+   * Get the it currently active dataset id.
+   * @returns {string} Id of the currently active dataset.
+   */
   getActiveId () {
     // Return currently active dataset by default
     if (0 in this.activeDatasetIds) {
@@ -171,6 +223,11 @@ class DataStore {
   }
 
   activeDatasetIdsListeners = []
+  /**
+   * Register a listener / callback to be triggered when the list of active dataset ids changes.
+   * @param {function} callback Callback function to call when the dataset ids change
+   * @param {boolean} immediate Should the callback be triggered once immediately?
+   */
   watchActiveDatasetIds (callback, immediate = true) {
     this.activeDatasetIdsListeners.push(callback)
 
@@ -178,17 +235,33 @@ class DataStore {
       callback(this.activeDatasetIds)
     }
   }
+  /**
+   * Remove a listener watching the active dataset ids.
+   * @param {function} callback Callback function to remove
+   */
   unwatchActiveDatasetIds (callback) {
     this.activeDatasetIdsListeners.splice(this.activeDatasetIdsListeners.indexOf(callback), 1)
   }
+  /**
+   * Trigger all listeners with the list of active dataset ids.
+   * (internal)
+   */
   notifyActiveDatasetIdsListeners () {
     this.activeDatasetIdsListeners.forEach(callback => callback(this.activeDatasetIds))
   }
-
+  /**
+   * Get the current list of dataset ids.
+   * @returns List of currently loaded dataset ids.
+   */
   getNames () {
     return Object.keys(this.store)
   }
   nameListeners = []
+  /**
+   * Register a listener / callback to be triggered when the list of loaded dataset ids changes.
+   * @param {function} callback Callback function to call when the loaded dataset ids change
+   * @param {boolean} immediate Should the callback be triggered once immediately?
+   */
   watchNames (callback, immediate = true) {
     this.nameListeners.push(callback)
 
@@ -196,9 +269,17 @@ class DataStore {
       callback(this.getNames())
     }
   }
+  /**
+   * Remove a listener watching the loaded dataset ids.
+   * @param {function} callback Callback function to remove
+   */
   unwatchNames (callback) {
     this.nameListeners.splice(this.nameListeners.indexOf(callback), 1)
   }
+  /**
+   * Trigger all listeners with the list of loaded dataset ids.
+   * (internal)
+   */
   notifyNameListeners () {
     this.nameListeners.forEach(callback => callback(this.getNames()))
   }
