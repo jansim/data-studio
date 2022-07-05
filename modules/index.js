@@ -59,6 +59,12 @@ const moduleGroups = [
         iframe: true,
         url: '/modules-iframe-prebuilt/module-kepler.gl/index.html'
       },
+      {
+        id: 'chart-editor',
+        name: 'Plotly.js',
+        iframe: true,
+        url: '/modules-iframe-prebuilt/module-plotly-chart-editor/index.html'
+      },
     ]
   }
 ]
