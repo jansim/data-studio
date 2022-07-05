@@ -1,4 +1,5 @@
 // TODO: Use arquero dataframes for the dataStore and add column information in the info object
+import { from } from 'arquero'
 
 class DataStore {
   store = {}
@@ -50,22 +51,45 @@ class DataStore {
    *    - 'data-with-info': Returns an object with the data itself (data) and meta information (info)
    * @param {string} dataFormat The format in which the data within dataset is expected.
    *   Possible Values:
-   *    - 'objects': An array of JS objects corresponding to rows (default)
-   *
+   *    - 'array-of-objects': An array of JS objects corresponding to rows (default)
+   *    - 'object-with-arrays': A JS object with columns for arrays
    * @returns Dataset
    *  A dataset is always a JS object with a
    */
-  get ({id = null, datasetFormat = 'data-only', dataFormat = 'objects'} = {}) {
+  get ({id = null, datasetFormat = 'data-only', dataFormat = 'array-of-objects'} = {}) {
     if (id === null) {
       id = this.getActiveId()
     }
 
     if (id in this.store) {
       const dataset = this.store[id]
+      const unconvertedData = dataset.data
+
+      // Convert data if necessary
+      var data
+      switch (dataFormat) {
+        case 'array-of-objects':
+          data = unconvertedData;
+          break;
+        case 'object-with-arrays':
+          data = Object.fromEntries(
+            Object.entries(
+              from(unconvertedData).columns()
+            ).map(([colname, values]) => [colname, values.data])
+          )
+          break;
+        default:
+          console.error('Unsupported dataFormat.')
+          break;
+      }
+
       if (datasetFormat === 'data-only') {
-        return dataset.data
+        return data
       } else if (datasetFormat === 'data-with-info') {
-        return dataset
+        return {
+          ...dataset,
+          data
+        }
       } else {
         throw `Unsupported datasetFormat option ${datasetFormat}`
       }
