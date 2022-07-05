@@ -5,6 +5,14 @@ if (!target) {
   console.log('Initializing iframeModuleApi.')
 }
 
+// TODO: Add the ability here to register a module and
+// request a different default dataformat to be served.
+
+// TODO List:
+// - Add the ability here to register a module and request a different default dataformat to be served.
+// - Add proper instancing of modules, probably based on a class. This way global variables can finally be dropped.
+// - When switching to an instanced version, make sure that the moduleApi is always available e.g. via this.moduleApi
+
 function triggerModuleApiMethod (methodName, originalArguments, additionalParameters = {}) {
   if (!target) {
     console.error('Trying to call remote moduleApi Method without having a target window. Skipping the call.')
