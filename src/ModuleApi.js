@@ -5,7 +5,7 @@ import { loadDataset, loadDatasets, loadDatasetFromText } from './data/dataLoade
 // with the rest of the application
 class ModuleApi {
   // Is this module loaded via an iframe?
-  iframe
+  iframe = false
   // Reference to the module obejct
   _moduleObject = null
   // Reference to the vueComponentInstance, for interaction with Vue
@@ -27,6 +27,9 @@ class ModuleApi {
     const defaultOptions = {}
     if (this._moduleObject.datasetFormat) {
       defaultOptions.datasetFormat = this._moduleObject.datasetFormat
+    }
+    if (this._moduleObject.dataFormat) {
+      defaultOptions.dataFormat = this._moduleObject.dataFormat
     }
     return dataStore.get({...defaultOptions, ...options})
   }
@@ -51,7 +54,7 @@ class ModuleApi {
   }
   /**
    * Load multiple datasets at once
-   * @param {*} sources Array of Sources
+   * @param {Array<*>} sources Array of Sources
    * @returns Array of Datasets
    */
   async loadDatasets (sources) {

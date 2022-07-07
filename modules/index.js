@@ -63,6 +63,7 @@ const moduleGroups = [
         id: 'chart-editor',
         name: 'Plotly.js',
         iframe: true,
+        dataFormat: 'object-with-arrays',
         url: '/modules-iframe-prebuilt/module-plotly-chart-editor/index.html'
       },
     ]

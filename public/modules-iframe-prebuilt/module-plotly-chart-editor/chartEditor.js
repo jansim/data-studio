@@ -63,7 +63,7 @@ export default {
   async mount(element, moduleApi) {
     _moduleApi = moduleApi
 
-    const data = await moduleApi.getData({dataFormat: 'object-with-arrays'})
+    const data = await moduleApi.getData()
     const dataSourceOptions = convertDataToDataSourceOptions(data)
 
     console.log(data, dataSourceOptions)
@@ -76,11 +76,7 @@ export default {
   },
 
   async onDataChange(newData) {
-    // Note: newData can not be used here, since it's in the wrong format!
-    // Future versions of the module API should support registering a dataFormat
-    // on the module level, but unfortunately this is not possible yet.
-    const data = await _moduleApi.getData({dataFormat: 'object-with-arrays'})
-    const dataSourceOptions = convertDataToDataSourceOptions(data)
-    appInstance.setState({ dataSources: data, dataSourceOptions })
+    const dataSourceOptions = convertDataToDataSourceOptions(newData)
+    appInstance.setState({ dataSources: newData, dataSourceOptions })
   }
 }
